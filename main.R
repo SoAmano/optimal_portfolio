@@ -1,6 +1,6 @@
+library(tidyverse)
 library(qqplotr)
 library(rvest)
-library(tidyverse)
 library(lubridate)
 library(quantmod)
 library(ggthemes)
@@ -23,7 +23,7 @@ draw_interval(0.1, 0.01, 0.2, 0.05, 0.02)
 ggsave("figures/probability_bullet.png", width = 10, height = 6)
 
 historical_data <- get_data(.from = make_date(2020,1,1), .to = make_date(2021,12,31))
-current_data <- get_data(.from = make_date(2022,1,1), .to = make_date(2022,5,27))
+current_data <- get_data(.from = make_date(2022,1,1), .to = make_date(2022,5,31))
 
 qq_plot(historical_data)
 ggsave("figures/qqplot.png", width = 10, height = 6)
