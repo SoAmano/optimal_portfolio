@@ -12,7 +12,8 @@ draw_pairwise_markowitz <- function(data){
       column1 <- data %>% select(i) %>% pull()
       column2 <- data %>% select(j) %>% pull()
       plot <- draw_marko_simple(mean(column1), var(column1), 
-                             mean(column2), var(column2), cor_matrix[i, j])
+                             mean(column2), var(column2), cor_matrix[i, j],
+                             i, j, symbols[i], symbols[j])
       column[[j]] <- plot
     }
     column_list[[i]] <- column
@@ -34,9 +35,22 @@ draw_pairwise_markowitz <- function(data){
 
 
 # Helper function for pairwise Markowitz
-draw_marko_simple <- function(mean_1, var_1, mean_2, var_2, rho = 0){
+draw_marko_simple <- function(mean_1, var_1, mean_2, var_2, rho = 0, i, j, name1, name2){
+  
+  title <-  NULL
+  if(i == 1){
+    title <-  name2
+  }
+  
+  axis <- NULL
+  if(j == 1){
+    axis <- name1
+  }
+  
   if (rho == 1){
-    return(ggplot() + labs(x = NULL, y = NULL))
+    return(ggplot() + 
+             labs(x = NULL, y = axis, subtitle = title) +
+             theme(plot.subtitle = element_text(hjust = 0.5)))
   }
   
   alphas <- seq(0, 1, 0.001)
@@ -54,10 +68,12 @@ draw_marko_simple <- function(mean_1, var_1, mean_2, var_2, rho = 0){
     geom_path(aes(variance, mean)) +
     labs(
       x = NULL,
-      y = NULL
+      y = axis,
+      subtitle = title
     ) +
     theme_few() +
-    theme(legend.position = c(0.75, 0.25))
+    theme(legend.position = c(0.75, 0.25),
+          plot.subtitle = element_text(hjust = 0.5))
   
   return(plot)
 }

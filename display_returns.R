@@ -42,7 +42,7 @@ plot_cumulative <- function(final) {
                        values = c("#eb5a0f", "#1c3678", "#249e8f")) +
     labs(title = "Comparing Returns of Portfolio Allocation Strategies on Dow 30",
          x = "Date",
-         y = "Return (in %)") +
+         y = "Value compared to start of 2022") +
     theme_minimal() +
     theme(plot.title = element_text(hjust = 0.5),
           legend.title = element_blank(),
